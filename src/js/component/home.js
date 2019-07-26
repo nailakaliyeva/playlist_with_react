@@ -19,7 +19,16 @@ export class Home extends React.Component {
 				{this.state.songs.map((item, index) => {
 					return (
 						<div key={index}>
-							<li className="list-group-item m-1">{item.name}</li>
+							<li className="list-group-item m-1">
+								{item.name}
+								<audio
+									type="audio/mp3"
+									src={
+										"https://assets.breatheco.de/apis/sound/" +
+										this.state.songs[index].url
+									}
+								/>
+							</li>
 						</div>
 					);
 				})}
