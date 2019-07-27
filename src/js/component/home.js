@@ -18,14 +18,17 @@ export class Home extends React.Component {
 	playSong(index) {
 		if (this.state.clicked == "play") {
 			document.querySelector("#audio" + index).play();
+			this.setState({ clicked: "pause" });
 		}
+		//this.setState({ clicked: "play" });
 	}
-	//havent assign it ti the event listener yet
+
 	pauseSong(index) {
-		this.setState({ clicked: "pause" });
+		//	this.setState({ clicked: "pause" });
 		if (this.state.clicked == "pause") {
 			document.querySelector("#audio" + index).pause();
-		}
+			this.setState({ clicked: "play" });
+		} //else this.setState({ clicked: "play" });
 	}
 
 	render() {
@@ -33,7 +36,7 @@ export class Home extends React.Component {
 			<ul className="list-group mx-1">
 				{this.state.songs.map((item, index) => {
 					return (
-						<div key={index}>
+						<div key={index} onClick={() => this.pauseSong(index)}>
 							<li
 								className="list-group-item m-1"
 								onClick={() => this.playSong(index)}>
