@@ -4,7 +4,8 @@ export class Home extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			songs: []
+			songs: [],
+			clicked: "play"
 		};
 	}
 	componentDidMount() {
@@ -14,8 +15,17 @@ export class Home extends React.Component {
 			.then(songs => this.setState({ songs }));
 	}
 
-	playSong(i) {
-		document.querySelector("#audio" + i).play();
+	playSong(index) {
+		if (this.state.clicked == "play") {
+			document.querySelector("#audio" + index).play();
+		}
+	}
+	//havent assign it ti the event listener yet
+	pauseSong(index) {
+		this.setState({ clicked: "pause" });
+		if (this.state.clicked == "pause") {
+			document.querySelector("#audio" + index).pause();
+		}
 	}
 
 	render() {
@@ -41,6 +51,23 @@ export class Home extends React.Component {
 						</div>
 					);
 				})}
+				<div className="buttons d-flex justify-content-around">
+					<button type="button" className="btn btn-primary btn-lg">
+						Previous
+					</button>
+
+					<span className="playBtn">
+						<i className="fas fa-play fa-5x" />
+					</span>
+
+					<span className="pauseBtn">
+						<i className="fas fa-pause fa-5x" />
+					</span>
+
+					<button type="button" className="btn btn-success btn-lg">
+						Next
+					</button>
+				</div>
 			</ul>
 		);
 	}
