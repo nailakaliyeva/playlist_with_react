@@ -5,11 +5,11 @@ export class Home extends React.Component {
 		super();
 		this.state = {
 			songs: [],
-			clicked: "play"
+			clicked: "play",
+			playingNow: false
 		};
 	}
 	componentDidMount() {
-		// this.pauseBtn.style.display = "none";
 		fetch("https://assets.breatheco.de/apis/sound/songs")
 			.then(resp => resp.json())
 			.then(songs => this.setState({ songs }));
@@ -19,16 +19,29 @@ export class Home extends React.Component {
 		if (this.state.clicked == "play") {
 			document.querySelector("#audio" + index).play();
 			this.setState({ clicked: "pause" });
+			// this.setState({ playingNow: true });
+			// if (this.state.playingNow === true) {
+			// 	document.querySelector(".playBtn").style.display = "none";
+			// 	document.querySelector(
+			// 		".pauseBtn"
+			// 	).onClick = document.querySelector("#audio" + index).pause();
+			// 	this.setState({ playingNow: false });
+			// }
 		}
-		//this.setState({ clicked: "play" });
 	}
 
 	pauseSong(index) {
-		//	this.setState({ clicked: "pause" });
 		if (this.state.clicked == "pause") {
 			document.querySelector("#audio" + index).pause();
 			this.setState({ clicked: "play" });
-		} //else this.setState({ clicked: "play" });
+			// if (this.state.playingNow === false) {
+			// 	document.querySelector(".pauseBtn").style.display = "none";
+			// 	document.querySelector(
+			// 		".playBtn"
+			// 	).onClick = document.querySelector("#audio" + index).play();
+			// 	this.setState({ playingNow: true });
+			// }
+		}
 	}
 
 	render() {
