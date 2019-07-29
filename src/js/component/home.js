@@ -5,8 +5,7 @@ export class Home extends React.Component {
 		super();
 		this.state = {
 			songs: [],
-			clicked: "play",
-			playingNow: false
+			playingNow: true
 		};
 	}
 	componentDidMount() {
@@ -16,44 +15,31 @@ export class Home extends React.Component {
 	}
 
 	playSong(index) {
-		if (this.state.clicked == "play") {
-			this.setState({ playingNow: true });
-			if (this.state.playingNow === true) {
-				document.querySelector(
-					".unique" + index
-				).style.backgroundColor = "black";
+		document.querySelector(".unique" + index).style.backgroundColor =
+			"black";
 
-				document.querySelector("#audio" + index).play();
-				this.setState({ clicked: "pause" });
+		document.querySelector("#audio" + index).play();
 
-				// document.querySelector(".playBtn").style.display = "none";
-				document.querySelector(".playBtn").style.display = "none";
-				document.querySelector(".pauseBtn").style.display = "inline";
-				document.querySelector(".pauseBtn").onclick = () =>
-					this.pauseSong(index);
-				this.setState({ playingNow: false });
-			}
-		}
+		// document.querySelector(".playBtn").style.display = "none";
+		document.querySelector(".playBtn").style.display = "none";
+		document.querySelector(".pauseBtn").style.display = "inline";
+		document.querySelector(".pauseBtn").onclick = () =>
+			this.pauseSong(index);
+		this.setState({ playingNow: false });
 	}
 
 	pauseSong(index) {
-		if (this.state.clicked == "pause") {
-			document.querySelector("#audio" + index).pause();
-			this.setState({ clicked: "play" });
-			if (this.state.playingNow === false) {
-				document.querySelector(
-					".unique" + index
-				).style.backgroundColor = "yellow";
-				//this.setState({ playingNow: true });
+		document.querySelector("#audio" + index).pause();
+		document.querySelector(".unique" + index).style.backgroundColor =
+			"yellow";
+		//this.setState({ playingNow: true });
 
-				document.querySelector(".pauseBtn").style.display = "none";
-				document.querySelector(".playBtn").style.display = "inline";
-				document.querySelector(".playBtn").onclick = () =>
-					this.playSong(index);
-				this.setState({ playingNow: true });
-			}
-		}
+		document.querySelector(".pauseBtn").style.display = "none";
+		document.querySelector(".playBtn").style.display = "inline";
+		document.querySelector(".playBtn").onclick = () => this.playSong(index);
+		this.setState({ playingNow: true });
 	}
+
 	render() {
 		return (
 			<ul className="list-group mx-1">
@@ -62,10 +48,12 @@ export class Home extends React.Component {
 						<div
 							className={"unique" + index}
 							key={index}
-							onClick={() => this.pauseSong(index)}>
-							<li
-								className="list-group-item m-1"
-								onClick={() => this.playSong(index)}>
+							onClick={
+								this.state.playingNow
+									? () => this.playSong(index)
+									: () => this.pauseSong(index)
+							}>
+							<li className="list-group-item m-1">
 								{item.name}
 								<audio
 									id={"audio" + index}
