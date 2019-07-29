@@ -18,8 +18,13 @@ export class Home extends React.Component {
 	playSong(index) {
 		if (this.state.clicked == "play") {
 			document.querySelector("#audio" + index).play();
+			this.setState({ playingNow: true });
+			if (this.state.playingNow == true) {
+				document.querySelector(
+					".unique" + index
+				).style.backgroundColor = "black";
+			}
 			this.setState({ clicked: "pause" });
-			// this.setState({ playingNow: true });
 			// if (this.state.playingNow === true) {
 			// 	document.querySelector(".playBtn").style.display = "none";
 			// 	document.querySelector(
@@ -43,13 +48,15 @@ export class Home extends React.Component {
 			// }
 		}
 	}
-
 	render() {
 		return (
 			<ul className="list-group mx-1">
 				{this.state.songs.map((item, index) => {
 					return (
-						<div key={index} onClick={() => this.pauseSong(index)}>
+						<div
+							className={"unique" + index}
+							key={index}
+							onClick={() => this.pauseSong(index)}>
 							<li
 								className="list-group-item m-1"
 								onClick={() => this.playSong(index)}>
