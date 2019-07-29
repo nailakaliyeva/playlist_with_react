@@ -17,13 +17,14 @@ export class Home extends React.Component {
 
 	playSong(index) {
 		if (this.state.clicked == "play") {
-			document.querySelector("#audio" + index).play();
 			this.setState({ playingNow: true });
 			if (this.state.playingNow == true) {
 				document.querySelector(
 					".unique" + index
 				).style.backgroundColor = "black";
+				this.setState({ playingNow: false });
 			}
+			document.querySelector("#audio" + index).play();
 			this.setState({ clicked: "pause" });
 			// if (this.state.playingNow === true) {
 			// 	document.querySelector(".playBtn").style.display = "none";
@@ -39,6 +40,12 @@ export class Home extends React.Component {
 		if (this.state.clicked == "pause") {
 			document.querySelector("#audio" + index).pause();
 			this.setState({ clicked: "play" });
+			if (this.state.playingNow == false) {
+				document.querySelector(
+					".unique" + index
+				).style.backgroundColor = "yellow";
+				this.setState({ playingNow: true });
+			}
 			// if (this.state.playingNow === false) {
 			// 	document.querySelector(".pauseBtn").style.display = "none";
 			// 	document.querySelector(
