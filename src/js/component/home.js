@@ -18,19 +18,19 @@ export class Home extends React.Component {
 	playSong(index) {
 		if (this.state.clicked == "play") {
 			this.setState({ playingNow: true });
-			if (this.state.playingNow == true) {
+			if (this.state.playingNow === true) {
 				document.querySelector(
 					".unique" + index
 				).style.backgroundColor = "black";
-				this.setState({ playingNow: false });
-			}
-			document.querySelector("#audio" + index).play();
-			this.setState({ clicked: "pause" });
-			if (this.state.playingNow === true) {
+
+				document.querySelector("#audio" + index).play();
+				this.setState({ clicked: "pause" });
+
 				// document.querySelector(".playBtn").style.display = "none";
-				document.querySelector(".playBtn").style.color = "red";
+				document.querySelector(".playBtn").style.display = "none";
+				document.querySelector(".pauseBtn").style.display = "inline";
 				document.querySelector(".pauseBtn").onclick = () =>
-					document.querySelector("#audio" + index).pause();
+					this.pauseSong(index);
 				this.setState({ playingNow: false });
 			}
 		}
@@ -46,10 +46,10 @@ export class Home extends React.Component {
 				).style.backgroundColor = "yellow";
 				//this.setState({ playingNow: true });
 
-				document.querySelector(".pauseBtn").style.color = "red";
-				document.querySelector(".playBtn").style.color = "blue";
+				document.querySelector(".pauseBtn").style.display = "none";
+				document.querySelector(".playBtn").style.display = "inline";
 				document.querySelector(".playBtn").onclick = () =>
-					document.querySelector("#audio" + index).play();
+					this.playSong(index);
 				this.setState({ playingNow: true });
 			}
 		}
