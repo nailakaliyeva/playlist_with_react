@@ -26,13 +26,12 @@ export class Home extends React.Component {
 			}
 			document.querySelector("#audio" + index).play();
 			this.setState({ clicked: "pause" });
-			// if (this.state.playingNow === true) {
-			// 	document.querySelector(".playBtn").style.display = "none";
-			// 	document.querySelector(
-			// 		".pauseBtn"
-			// 	).onClick = document.querySelector("#audio" + index).pause();
-			// 	this.setState({ playingNow: false });
-			// }
+			if (this.state.playingNow === true) {
+				document.querySelector(".playBtn").style.display = "none";
+				document.querySelector(".pauseBtn").onclick = () =>
+					document.querySelector("#audio" + index).pause();
+				this.setState({ playingNow: false });
+			}
 		}
 	}
 
@@ -46,13 +45,12 @@ export class Home extends React.Component {
 				).style.backgroundColor = "yellow";
 				this.setState({ playingNow: true });
 			}
-			// if (this.state.playingNow === false) {
-			// 	document.querySelector(".pauseBtn").style.display = "none";
-			// 	document.querySelector(
-			// 		".playBtn"
-			// 	).onClick = document.querySelector("#audio" + index).play();
-			// 	this.setState({ playingNow: true });
-			// }
+			if (this.state.playingNow === false) {
+				document.querySelector(".pauseBtn").style.display = "none";
+				document.querySelector(".playBtn").onclick = () =>
+					document.querySelector("#audio" + index).play();
+				this.setState({ playingNow: true });
+			}
 		}
 	}
 	render() {
