@@ -9,6 +9,7 @@ export class Home extends React.Component {
 		};
 	}
 	componentDidMount() {
+		document.querySelector(".playBtn").style.display = "none";
 		fetch("https://assets.breatheco.de/apis/sound/songs")
 			.then(resp => resp.json())
 			.then(songs => this.setState({ songs }));
@@ -20,7 +21,6 @@ export class Home extends React.Component {
 
 		document.querySelector("#audio" + index).play();
 
-		// document.querySelector(".playBtn").style.display = "none";
 		document.querySelector(".playBtn").style.display = "none";
 		document.querySelector(".pauseBtn").style.display = "inline";
 		document.querySelector(".pauseBtn").onclick = () =>
